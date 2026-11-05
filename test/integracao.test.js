@@ -19,7 +19,8 @@ test('sandbox: empresa de exemplo, tomador, emissão e PDF', { skip: !chave && '
 
   const { tomador } = await ej.tomadores.criar({ documento: '12345678000195' });
   const referencia = `sdk-js-${Date.now()}`;
-  const { pedido } = await ej.notas.emitir({ referencia, tomador_tipo: tomador.tipo, tomador_id: tomador.id, valor: 10, descricao: 'Teste do cliente JavaScript' });
+  // valor de 100,01 a 199,99: longe dos valores com significado no sandbox (todos abaixo de 100)
+  const { pedido } = await ej.notas.emitir({ referencia, tomador_tipo: tomador.tipo, tomador_id: tomador.id, valor: (10001 + Math.floor(Math.random() * 9999)) / 100, descricao: 'Teste do cliente JavaScript' });
   const { pedido: final } = await ej.notas.aguardar(pedido.id, { timeoutMs: 120_000 });
   assert.ok(['autorizada', 'recusada', 'incerta'].includes(final.estado));
   if (final.estado === 'autorizada') {

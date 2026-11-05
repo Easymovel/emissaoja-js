@@ -58,7 +58,7 @@ if (final.estado === 'autorizada') {
 }
 ```
 
-Valores com significado no sandbox: `13.13` gera uma nota **incerta** que `ej.emissoes.conferir(id)` resolve como autorizada, `77.77` uma incerta que não saiu e `99.99` uma **recusada**. Outras empresas de exemplo: `22222222000191` (ME que pede a alíquota do Simples antes de emitir), `33333333000191` (MEI sem notas anteriores) e `44444444000191` (bloqueada). A senha `errada` simula senha recusada pelo portal. Um exemplo completo está em [`exemplos/emitir-nfse-sandbox.mjs`](exemplos/emitir-nfse-sandbox.mjs).
+Valores com significado no sandbox: `13.13` gera uma nota **incerta** que `ej.emissoes.conferir(id)` resolve como autorizada, `77.77` uma incerta que não saiu, `66.66` uma **recusada** pelo fisco e `99.99` um **bloqueio** já na prévia (`422 nota_bloqueada`). Outras empresas de exemplo: `22222222000191` (ME que pede a alíquota do Simples antes de emitir), `33333333000191` (MEI sem notas anteriores) e `44444444000191` (bloqueada). A senha `errada` simula senha recusada pelo portal. Um exemplo completo está em [`exemplos/emitir-nfse-sandbox.mjs`](exemplos/emitir-nfse-sandbox.mjs).
 
 ## Em produção
 
