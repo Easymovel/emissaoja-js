@@ -1,0 +1,66 @@
+{
+  "name": "emissaoja",
+  "version": "0.1.0",
+  "description": "API de NFS-e nacional para Node.js e TypeScript: emita nota fiscal de serviço eletrônica no Emissor Nacional (nfse.gov.br) sem certificado digital, para MEI e Simples Nacional. Tomadores, serviços, PDF (DANFSe) e XML. Cliente oficial do emissaoja.",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "nfse",
+    "nfs-e",
+    "nfse-nacional",
+    "api-nfse",
+    "nfse-api",
+    "emitir-nfse",
+    "emissao-nfse",
+    "nota-fiscal",
+    "nota-fiscal-de-servico",
+    "nota-fiscal-eletronica",
+    "nota-fiscal-servico-eletronica",
+    "emissor-nacional",
+    "emissor-nacional-nfse",
+    "padrao-nacional",
+    "danfse",
+    "sem-certificado-digital",
+    "mei",
+    "simples-nacional",
+    "iss",
+    "fiscal",
+    "brasil",
+    "brazil",
+    "invoice",
+    "service-invoice",
+    "typescript",
+    "sdk",
+    "api",
+    "emissaoja"
+  ],
+  "homepage": "https://emissaoja.com.br/docs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Easymovel/emissaoja-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Easymovel/emissaoja-js/issues"
+  },
+  "author": "BINOBO LTDA (https://emissaoja.com.br)",
+  "license": "MIT"
+}

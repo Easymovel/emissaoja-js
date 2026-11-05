@@ -1,0 +1,57 @@
+# Publica o pacote no npm quando uma tag v* é enviada (ex.: git tag v0.1.0 && git push origin v0.1.0).
+#
+# Configuração única no npmjs.com (conta da empresa):
+#   1. Primeira publicação: o npm só deixa configurar o trusted publishing depois que o pacote existe. Crie um
+#      Granular Access Token com permissão de publicação e salve como secret NPM_TOKEN neste repositório, ou publique a
+#      0.1.0 à mão (`npm publish --access public` na pasta, com a conta logada).
+#   2. Depois: npmjs.com > pacote emissaoja > Settings > Trusted publishing > GitHub Actions: owner "Easymovel",
+#      repositório "emissaoja-js", workflow "publicar.yml". Com isso configurado, apague o secret NPM_TOKEN.
+name: Publicar no npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test
+
+  publicar:
+    needs: testes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+      # trusted publishing exige npm 11.5.1 ou mais novo
+      - run: npm install -g npm@latest
+      - name: Conferir tag x versão do package.json e do VERSAO
+        run: |
+          VERSAO="$(node -p "require('./package.json').version")"
+          if [ "v${VERSAO}" != "${GITHUB_REF_NAME}" ]; then
+            echo "Tag ${GITHUB_REF_NAME} não bate com a versão ${VERSAO} do package.json" >&2
+            exit 1
+          fi
+          grep -q "VERSAO = '${VERSAO}'" src/index.js || { echo "Atualize VERSAO em src/index.js para ${VERSAO}" >&2; exit 1; }
+      - run: npm publish --provenance --access public
+        env:
+          # Só é usado enquanto o trusted publishing não estiver configurado (passo 1 acima).
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
