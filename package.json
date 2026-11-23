@@ -53,7 +53,7 @@
     "api",
     "emissaoja"
   ],
-  "homepage": "https://emissaoja.com.br/docs/",
+  "homepage": "https://emissaoja.com.br/docs/?origem=lib-npm&utm_source=npm&utm_medium=pacote&utm_campaign=docs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Easymovel/emissaoja-js.git"

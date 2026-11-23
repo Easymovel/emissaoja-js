@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/emissaoja)](https://www.npmjs.com/package/emissaoja) [![CI](https://github.com/Easymovel/emissaoja-js/actions/workflows/ci.yml/badge.svg)](https://github.com/Easymovel/emissaoja-js/actions/workflows/ci.yml) [![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue)](LICENSE)
 
-Cliente oficial da **[API do emissaoja](https://emissaoja.com.br/docs/)** para emitir **NFS-e (Nota Fiscal de Serviço eletrônica) no Emissor Nacional** (nfse.gov.br) a partir do seu sistema, **sem certificado digital**: o emissaoja entra no portal com o CNPJ e a senha da própria empresa. Feito para **MEI e empresas do Simples Nacional**. Cadastre tomadores pelo CNPJ (nome e endereço vêm da Receita Federal), emita, acompanhe a autorização, baixe o **PDF (DANFSe) e o XML** e cancele notas.
+Cliente oficial da **[API do emissaoja](https://emissaoja.com.br/docs/?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=docs)** para emitir **NFS-e (Nota Fiscal de Serviço eletrônica) no Emissor Nacional** (nfse.gov.br) a partir do seu sistema, **sem certificado digital**: o emissaoja entra no portal com o CNPJ e a senha da própria empresa. Feito para **MEI e empresas do Simples Nacional**. Cadastre tomadores pelo CNPJ (nome e endereço vêm da Receita Federal), emita, acompanhe a autorização, baixe o **PDF (DANFSe) e o XML** e cancele notas.
 
 - ESM com tipos TypeScript, **zero dependências**. Node.js 18+ e qualquer runtime com `fetch` (Deno, Bun, Cloudflare Workers).
 - **Idempotência embutida:** toda emissão leva uma `referencia` sua, que vira o cabeçalho `Idempotency-Key`. Repetir a mesma referência nunca emite duas notas.
@@ -16,7 +16,7 @@ Cliente oficial da **[API do emissaoja](https://emissaoja.com.br/docs/)** para e
 npm install emissaoja
 ```
 
-Crie a conta com o Google em [emissaoja.com.br](https://emissaoja.com.br/?origem=lib-npm) e gere a chave em **Conta → API** (ela aparece uma vez; prefixo `ej_live_`). Guarde a chave no servidor:
+Crie a conta com o Google em [emissaoja.com.br](https://emissaoja.com.br/?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=home) e gere a chave em **Conta → API** (ela aparece uma vez; prefixo `ej_live_`). Guarde a chave no servidor:
 
 ```bash
 export EMISSAOJA_KEY=ej_live_...
@@ -134,7 +134,7 @@ try {
 | 402 | `limite_notas` | Limite do plano no mês |
 | 404 | `tomador_nao_encontrado`, `servico_nao_encontrado`, `nota_nao_encontrada`, `pedido_nao_encontrado` | Conferir o id |
 | 409 | `sem_empresa` | Conectar a empresa (`empresa.conectar`) |
-| 409 | `aceite_pendente` | Termos ou Política mudaram: entre no [app](https://emissaoja.com.br/app) e aceite a versão nova; a chave volta a funcionar |
+| 409 | `aceite_pendente` | Termos ou Política mudaram: entre no [app](https://emissaoja.com.br/app?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=app) e aceite a versão nova; a chave volta a funcionar |
 | 409 | `possivel_duplicada`, `emissao_repetida_recente`, `incerta_pendente` | Ver "Idempotência e nota em dobro" |
 | 422 | `nota_bloqueada` | Resolver `extras.bloqueios` |
 | 429 | `rate_limited` | Esperar `Retry-After` |
@@ -156,7 +156,7 @@ Limites: 60 chamadas por minuto por chave, 10 emissões por minuto e 120 por min
 | `cnpj` | `consultar` (dados da Receita Federal) |
 | — | `status()` (sem chave) |
 
-Opções do construtor: `chave` (padrão `EMISSAOJA_KEY`), `baseUrl` (`BASE_PRODUCAO` ou `BASE_SANDBOX`), `timeoutMs` (30000), `fetch`. Referência completa da API: [emissaoja.com.br/docs](https://emissaoja.com.br/docs/) e [OpenAPI 3.1](https://emissaoja.com.br/v1/openapi.json).
+Opções do construtor: `chave` (padrão `EMISSAOJA_KEY`), `baseUrl` (`BASE_PRODUCAO` ou `BASE_SANDBOX`), `timeoutMs` (30000), `fetch`. Referência completa da API: [emissaoja.com.br/docs](https://emissaoja.com.br/docs/?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=docs) e [OpenAPI 3.1](https://emissaoja.com.br/v1/openapi.json).
 
 ## Perguntas frequentes
 
@@ -166,7 +166,7 @@ Opções do construtor: `chave` (padrão `EMISSAOJA_KEY`), `baseUrl` (`BASE_PROD
 
 **Tem ambiente de testes?** Sim, o sandbox em `https://sandbox.emissaoja.com.br`, com o Emissor Nacional simulado e empresas de exemplo.
 
-**Quanto custa?** O plano Grátis emite 1 nota por mês; os planos pagos estão em [emissaoja.com.br/#precos](https://emissaoja.com.br/#precos). O sandbox é grátis. Nota recusada não conta.
+**Quanto custa?** O plano Grátis emite 1 nota por mês; os planos pagos estão em [emissaoja.com.br/#precos](https://emissaoja.com.br/?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=precos#precos). O sandbox é grátis. Nota recusada não conta.
 
 **Tem webhook?** Ainda não. Acompanhe o pedido com `notas.aguardar()` ou `emissoes.obter()`, que trazem `proxima_consulta_ms`.
 
@@ -179,7 +179,7 @@ Opções do construtor: `chave` (padrão `EMISSAOJA_KEY`), `baseUrl` (`BASE_PROD
 
 ## In English
 
-Official Node.js/TypeScript client for the [emissaoja API](https://emissaoja.com.br/docs/): issue Brazilian **NFS-e** (electronic service invoices) through the national **Emissor Nacional** without a digital certificate, for MEI and Simples Nacional companies. Zero dependencies, typed, idempotent issuing, PDF and XML download, and a free sandbox with a simulated tax authority. The API and the docs are in Portuguese.
+Official Node.js/TypeScript client for the [emissaoja API](https://emissaoja.com.br/docs/?origem=lib-npm&utm_source=npm&utm_medium=readme&utm_campaign=docs): issue Brazilian **NFS-e** (electronic service invoices) through the national **Emissor Nacional** without a digital certificate, for MEI and Simples Nacional companies. Zero dependencies, typed, idempotent issuing, PDF and XML download, and a free sandbox with a simulated tax authority. The API and the docs are in Portuguese.
 
 ---
 
